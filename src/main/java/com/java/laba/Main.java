@@ -1,7 +1,5 @@
 package com.java.laba;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -10,10 +8,9 @@ public class Main {
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final Logic LOGIC = new Logic();
-    private static final PersonStage PERSON_STAGE = new PersonStage();
 
     public static void main(String[] args) {
-        init();
+
         while (true) {
             try {
                 readPersonMenu();
@@ -35,7 +32,7 @@ public class Main {
                 "6. Выход");
     }
 
-    public static void userController() {
+    public static void userController() throws PersonNotFoundedException {
         switch (SCANNER.nextInt()) {
             case 1:
                 SCANNER.nextLine();
@@ -82,19 +79,5 @@ public class Main {
         }
         readPersonMenu();
         userController();
-    }
-
-    public static void init() {
-        Income income1 = new Income("на воздух", 3000, 15);
-        Income income2 = new Income("на деньги", 50000, 30);
-        Income income3 = new Income("на воду", 300, 15);
-        List<Income> incomes1 = new ArrayList<>();
-        List<Income> incomes2 = new ArrayList<>();
-        incomes1.add(income1);
-        incomes1.add(income2);
-        incomes2.add(income2);
-        incomes2.add(income3);
-        PERSON_STAGE.addPerson(new Person("андрей", incomes1));
-        PERSON_STAGE.addPerson(new Person("вася", incomes2));
     }
 }
