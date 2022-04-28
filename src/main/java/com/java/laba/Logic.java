@@ -7,14 +7,9 @@ public class Logic {
 
     private static final FileReader FILE_READER = new FileReader();
 
-    public void findSumOfTaxes(String username) {
-        Person person = new Person();
-        for (Person element : FILE_READER.findAll()) {
-            if(element.getUsername().equals(username)) {
-                person = element;
-                break;
-            }
-        }
+    public void findSumOfTaxes(String username) throws CustomFileException, PersonNotFoundedException {
+        Person person = FILE_READER.findPersonByName(username);
+
         System.out.println(person.getUsername());
         long sum = 0;
         for (Income income : person.getIncomes()) {
@@ -24,11 +19,11 @@ public class Logic {
         System.out.println("Сумма налогов: " + sum);
     }
 
-    public void printAllPersons() {
+    public void printAllPersons() throws CustomFileException {
         FILE_READER.findAll().forEach(System.out::println);
     }
 
-    public void sortTaxesByIncrease(String username) throws PersonNotFoundedException {
+    public void sortTaxesByIncrease(String username) throws PersonNotFoundedException, CustomFileException {
         Person person = new Person();
         for (Person element : FILE_READER.findAll()) {
             if(element.getUsername().equals(username)) {
@@ -42,11 +37,11 @@ public class Logic {
         FILE_READER.updatePerson(person.getUsername(), person);
     }
 
-    public void addPerson(Person person) {
+    public void addPerson(Person person) throws CustomFileException {
         FILE_READER.addToFile(person);
     }
 
-    public void addIncomesToPerson(Income income, String username) throws PersonNotFoundedException {
+    public void addIncomesToPerson(Income income, String username) throws PersonNotFoundedException, CustomFileException {
         Person person = FILE_READER.findPersonByName(username);
         final List<Income> incomes = person.getIncomes();
         incomes.add(income);

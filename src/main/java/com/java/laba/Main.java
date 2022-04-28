@@ -15,6 +15,9 @@ public class Main {
             try {
                 readPersonMenu();
                 userController();
+            } catch (CustomFileException fileException) {
+                System.out.println("File exception");
+                SCANNER.nextLine();
             } catch (Exception e) {
                 System.out.println("Не стукай!!!");
                 SCANNER.nextLine();
@@ -32,7 +35,7 @@ public class Main {
                 "6. Выход");
     }
 
-    public static void userController() throws PersonNotFoundedException {
+    public static void userController() throws PersonNotFoundedException, CustomFileException {
         switch (SCANNER.nextInt()) {
             case 1:
                 SCANNER.nextLine();

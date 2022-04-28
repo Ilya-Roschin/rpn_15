@@ -24,7 +24,7 @@ public class FileReader {
         }
     }
 
-    public List<Person> findAll() {
+    public List<Person> findAll() throws CustomFileException {
         FileInputStream fileInputStream = null;
         List<Person> userList = new ArrayList<>();
         try {
@@ -36,12 +36,12 @@ public class FileReader {
                 objectInputStream.close();
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("IoExceprion");
+            throw new CustomFileException();
         }
         return userList;
     }
 
-    public Person findPersonByName(String name) throws PersonNotFoundedException {
+    public Person findPersonByName(String name) throws PersonNotFoundedException, CustomFileException {
         for (Person element :findAll()) {
             if (element.getUsername().equals(name)) {
                 return element;
@@ -50,7 +50,7 @@ public class FileReader {
         throw new PersonNotFoundedException();
     }
 
-    public void addToFile(Person person) {
+    public void addToFile(Person person) throws CustomFileException {
         FileOutputStream outputStream = null;
         List<Person> usersList = findAll();
         try {
@@ -64,11 +64,11 @@ public class FileReader {
             objectOutputStream.close();
 
         } catch (IOException e) {
-            System.out.println("IoExceprion");
+            throw new CustomFileException();
         }
     }
 
-    public void deletePerson(Person user) {
+    public void deletePerson(Person user) throws CustomFileException {
         List<Person> personList = findAll();
         clearFile();
         for (int i = 0; i < personList.size(); i++) {
@@ -83,7 +83,7 @@ public class FileReader {
         }
     }
 
-    public void updatePerson(String name, Person updatedPerson) throws PersonNotFoundedException {
+    public void updatePerson(String name, Person updatedPerson) throws PersonNotFoundedException, CustomFileException {
         deletePerson(findPersonByName(name));
         addToFile(updatedPerson);
     }

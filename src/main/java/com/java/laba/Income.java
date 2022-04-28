@@ -1,8 +1,9 @@
 package com.java.laba;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Income {
+public class Income implements Serializable {
 
     private String name;
 
